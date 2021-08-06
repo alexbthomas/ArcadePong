@@ -1,7 +1,9 @@
+#imports
 import turtle
 import random
 import math
 
+#creating screen
 screen = turtle.Screen()
 screen.setup(800, 500)
 screen.bgcolor("black")
@@ -37,7 +39,7 @@ ball.goto(0, 0)
 ball.dx = -4
 ball.dy = -4
 
-#Score Writer
+#Score Writers
 scorepen1 = turtle.Turtle()
 scorepen1.hideturtle()
 scorepen1.speed(0)
@@ -56,14 +58,7 @@ scorepen2.goto(120, 200)
 scorestring = "%s" %p2score
 scorepen2.write(scorestring, False, align = "left", font =("Arial", 14, "normal"))
 
-#Pen
-pen = turtle.Turtle()
-pen.hideturtle()
-pen.speed(0)
-pen.penup()
-pen.color("#FFFB00")
-pen.goto(-15,0)
-
+#movement functions
 def pAup():
   y = paddleA.ycor()
   y += 20
@@ -84,6 +79,7 @@ def pBdown():
   y -= 20
   paddleB.sety(y)
   
+#detect collision between two turtle objects
 def collision(t1, t2):
   dist = math.sqrt(math.pow(t1.xcor() - t2.xcor(), 2) + math.pow(t1.ycor() - t2.ycor(), 2))
   if dist < 19:
@@ -91,6 +87,7 @@ def collision(t1, t2):
   else:
     return False
     
+#updates score given player
 def scoreupdate(player):
   if(player == 1):
     scorepen1.clear()
@@ -101,6 +98,7 @@ def scoreupdate(player):
     scorestring = "%s" %p2score
     scorepen2.write(scorestring, False, align = "left", font =("Arial", 14, "normal"))
 
+#key binds
 screen.listen()
 screen.onkey(pAup, "W")
 screen.onkey(pAdown, "S")
@@ -116,7 +114,7 @@ while game:
   ball.setx(ball.xcor() + ball.dx)
   ball.sety(ball.ycor() + ball.dy)
   
-  #Border Creation
+  #Border Creation/Detection
   if ball.ycor() > 240:
     ball.sety(240)
     ball.dy *= -1
@@ -140,6 +138,7 @@ while game:
     p2score+=1
     scoreupdate(2)
     
+  #Paddle Borders
   if paddleA.ycor() > 240:
     y = 240
     paddleA.sety(y)
@@ -163,6 +162,7 @@ while game:
   if collision(paddleB, ball):
     ball.dx *= -1
     
+  #Loop Conditions
   if p1score >= 10:
     break
   if p2score >= 10:

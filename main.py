@@ -36,8 +36,8 @@ ball.shape("circle")
 ball.color("#00FF80")
 ball.penup()
 ball.goto(0, 0)
-ball.dx = -4
-ball.dy = -4
+ball.dx = -2
+ball.dy = -2
 
 #Score Writers
 scorepen1 = turtle.Turtle()
